@@ -14,7 +14,7 @@
 			"homepage": "https://seliverstov.pro"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.4.33",
         "guzzlehttp/psr7": "2.7",
