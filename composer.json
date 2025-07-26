@@ -1,6 +1,6 @@
 {
     "name": "yuryiseliverstov/whatsapp-stream",
-	"description": "Encode and Decode WhatsApp Streams with Encryption",
+	"description": "Encode and Decode WhatsApp Streams (Audio, Video, Image, Document) with Encryption",
     "type": "library",
     "license": "MIT",
     "autoload": {

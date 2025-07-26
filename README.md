@@ -22,9 +22,15 @@ $imageStream = new WhatsAppStream('samples/IMAGE.encrypted', 'samples/IMAGE.key'
 file_put_contents('output/IMAGE.encrypted', $imageStream->getEncryptedContents());
 
 /**
- * Decryption
+ * Decryption Audio
  */
 $audioStream = new WhatsAppStream('samples/AUDIO.encrypted', 'samples/AUDIO.key', 'AUDIO',true);
 file_put_contents('output/AUDIO.original', $audioStream->getContents());
+
+/**
+ * Decryption Video
+ */
+$videoStream = new WhatsAppStream('samples/VIDEO.encrypted', 'samples/VIDEO.key', 'VIDEO',true);
+file_put_contents('output/VIDEO.original', $videoStream->getContents());
 ?>
 ```
