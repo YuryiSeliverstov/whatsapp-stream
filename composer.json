@@ -1,0 +1,23 @@
+{
+    "name": "yuryiseliverstov/whatsapp-stream",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "yuryiseliverstov\\whatsapp-stream\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yuryi Seliverstov",
+            "email": "yurban.nah@gmail.com",
+			"homepage": "https://seliverstov.pro"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.4.33",
+        "guzzlehttp/psr7": "2.7",
+		"ext-openssl": "*"
+    }
+}
