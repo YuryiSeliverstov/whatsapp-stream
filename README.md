@@ -8,29 +8,34 @@
 composer require yuryiseliverstov\whatsapp-stream
 ```
 ## Usage:
+Create .php file in root directory, as well create "WhatsAppStreamOutput" directory with 777 rights if you use Linux Operating System.
 ```
 <?php
 
 require 'vendor/autoload.php';
 
-use yuryiseliverstov\WhatsAppStream;
+
+use yuryiseliverstov\WhatsAppStream\WhatsAppStream;
+
+$samplesDir = 'vendor/yuryiseliverstov/whatsapp-stream/samples/';
+$outputDir = 'WhatsAppStreamOutput';
+
+if (!is_dir($outputDir))
+	mkdir($outputDir);
 
 /**
  * Encryption
  */
-$imageStream = new WhatsAppStream('samples/IMAGE.encrypted', 'samples/IMAGE.key', 'IMAGE',false);
-file_put_contents('output/IMAGE.encrypted', $imageStream->getEncryptedContents());
+$imageStream = new WhatsAppStream($samplesDir.'IMAGE.encrypted', $samplesDir.'IMAGE.key', 'IMAGE',false);
+file_put_contents($outputDir.'/IMAGE.encrypted', $imageStream->getEncryptedContents());
 
 /**
- * Decryption Audio
+ * Decryption
  */
-$audioStream = new WhatsAppStream('samples/AUDIO.encrypted', 'samples/AUDIO.key', 'AUDIO',true);
-file_put_contents('output/AUDIO.original', $audioStream->getContents());
+$audioStream = new WhatsAppStream($samplesDir.'AUDIO.encrypted', $samplesDir.'AUDIO.key', 'AUDIO',true);
+file_put_contents($outputDir.'/AUDIO.original', $audioStream->getContents());
 
-/**
- * Decryption Video
- */
-$videoStream = new WhatsAppStream('samples/VIDEO.encrypted', 'samples/VIDEO.key', 'VIDEO',true);
-file_put_contents('output/VIDEO.original', $videoStream->getContents());
+echo 'Job Done!';
+
 ?>
 ```

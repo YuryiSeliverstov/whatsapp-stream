@@ -1,6 +1,6 @@
 <?php
 
-namespace yuryiseliverstov;
+namespace yuryiseliverstov\WhatsAppStream;
 
 use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
