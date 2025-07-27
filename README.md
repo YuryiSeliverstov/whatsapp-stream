@@ -41,5 +41,4 @@ $videoStream = new WhatsAppStream($samplesDir.'VIDEO.encrypted', $samplesDir.'VI
 file_put_contents($outputDir.'VIDEO.original', $videoStream->getContents());
 echo 'Job Done!'.PHP_EOL;
 ?>
-?>
 ```
