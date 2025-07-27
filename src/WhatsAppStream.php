@@ -10,11 +10,17 @@ use Psr\Http\Message\StreamInterface;
  */
 class WhatsAppStream implements StreamInterface
 {
-    public const MEDIA_KEY_TYPES = [
-        'IMAGE' => 'WhatsApp Image Keys',
-        'AUDIO' => 'WhatsApp Audio Keys',
-        'VIDEO' => 'WhatsApp Video Keys',
-        'DOCUMENT' => 'WhatsApp Document Keys'
+    public const
+        MEDIA_TYPE_IMAGE = 'IMAGE',
+        MEDIA_TYPE_AUDIO = 'AUDIO',
+        MEDIA_TYPE_VIDEO = 'VIDEO',
+        MEDIA_TYPE_DOCUMENT = 'DOCUMENT';
+
+    private const MEDIA_KEY_TYPES = [
+        self::MEDIA_TYPE_IMAGE => 'WhatsApp Image Keys',
+        self::MEDIA_TYPE_AUDIO => 'WhatsApp Audio Keys',
+        self::MEDIA_TYPE_VIDEO => 'WhatsApp Video Keys',
+        self::MEDIA_TYPE_DOCUMENT => 'WhatsApp Document Keys'
     ];
 
     private Stream $stream;
@@ -22,10 +28,11 @@ class WhatsAppStream implements StreamInterface
     private const
         CYPHER_ALGO = 'AES-256-CBC',
         MSG_BAD_MEDIA_TYPE = 'UNKNOWN MEDIA TYPE',
-        MSG_BAD_CYPHER_DATA = 'BAD CYPHER KEY DATA';
+        MSG_BAD_CYPHER_DATA = 'BAD CYPHER KEY DATA',
+        MSG_BAD_MEDIA_SIDECAR = 'THIS MEDIA TYPE IS INCOMPATIBLE WITH SIDECAR ALGORITHM';
 
     private string
-            $cipherKey, $iv, $macKey, $refKey, $mediaKeyType;
+            $cipherKey, $iv, $macKey, $refKey, $mediaKeyType, $mediaType;
     private bool
             $streamEncrypted = false;
 
@@ -41,6 +48,7 @@ class WhatsAppStream implements StreamInterface
         $this->setMediaKeyType($mediaType);
 
         $this->streamEncrypted = $streamEncrypted;
+        $this->mediaType = $mediaType;
 
         $this->stream = new Stream(fopen($streamFileName, 'r'));
         $key = file_get_contents($streamKeyFileName);
@@ -50,20 +58,6 @@ class WhatsAppStream implements StreamInterface
         $this->cipherKey = substr($expandedKey, 16, 32);
         $this->macKey = substr($expandedKey, 48, 32);
         $this->refKey = substr($expandedKey, 80);
-    }
-
-    /**
-     * @param string $fileName
-     * @return void
-     */
-    public function toFile(string $fileName)
-    {
-        file_put_contents($fileName, $this->stream->getContents());
-    }
-
-    public function toBrowser()
-    {
-
     }
 
     /**

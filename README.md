@@ -14,28 +14,32 @@ Create .php file in root directory, as well create "WhatsAppStreamOutput" direct
 
 require 'vendor/autoload.php';
 
-
 use yuryiseliverstov\WhatsAppStream\WhatsAppStream;
 
 $samplesDir = 'vendor/yuryiseliverstov/whatsapp-stream/samples/';
-$outputDir = 'WhatsAppStreamOutput';
+$outputDir = 'WhatsAppStreamOutput/';
 
 if (!is_dir($outputDir))
-	mkdir($outputDir);
+    mkdir($outputDir);
 
 /**
- * Encryption
+ * Encryption Image
  */
-$imageStream = new WhatsAppStream($samplesDir.'IMAGE.encrypted', $samplesDir.'IMAGE.key', 'IMAGE',false);
-file_put_contents($outputDir.'/IMAGE.encrypted', $imageStream->getEncryptedContents());
+$imageStream = new WhatsAppStream($samplesDir.'IMAGE.encrypted', $samplesDir.'IMAGE.key', WhatsAppStream::MEDIA_TYPE_IMAGE,false);
+file_put_contents($outputDir.'IMAGE.encrypted', $imageStream->getEncryptedContents());
 
 /**
- * Decryption
+ * Decryption Audio
  */
-$audioStream = new WhatsAppStream($samplesDir.'AUDIO.encrypted', $samplesDir.'AUDIO.key', 'AUDIO',true);
-file_put_contents($outputDir.'/AUDIO.original', $audioStream->getContents());
+$audioStream = new WhatsAppStream($samplesDir.'AUDIO.encrypted', $samplesDir.'AUDIO.key', WhatsAppStream::MEDIA_TYPE_AUDIO,true);
+file_put_contents($outputDir.'AUDIO.original', $audioStream->getContents());
 
-echo 'Job Done!';
-
+/**
+ * Decryption Video
+ */
+$videoStream = new WhatsAppStream($samplesDir.'VIDEO.encrypted', $samplesDir.'VIDEO.key', WhatsAppStream::MEDIA_TYPE_VIDEO,true);
+file_put_contents($outputDir.'VIDEO.original', $videoStream->getContents());
+echo 'Job Done!'.PHP_EOL;
+?>
 ?>
 ```
